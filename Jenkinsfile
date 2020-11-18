@@ -6,7 +6,7 @@ pipeline {
     backendImage = ''
   }
   stages {
-    stage("Building the Backend Image") {
+    stage("Build Docker Image") {
           steps {
             script {
               checkout scm
@@ -16,7 +16,7 @@ pipeline {
             }
           }
     }
-    stage("Pushing Images to DockerHub") {
+    stage("Push Image to DockerHub") {
       steps {
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -25,7 +25,7 @@ pipeline {
         }
       }
     }
-    stage("Deploying to Rancher") {
+    stage("Deploy to Rancher") {
       steps {
         sh 'kubectl set image deployment/backend swe645=aimnissley/swe645:B-${BUILD_NUMBER} --kubeconfig /home/Jenkins/.kube/config'
       }
