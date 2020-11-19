@@ -1,2 +1,8 @@
-FROM tomcat:9.0-jdk15
-COPY Backend.war /usr/local/tomcat/webapps/
+# Alpine Linux with OpenJDK JRE
+FROM openjdk:8-jre-alpine
+
+# Copy war file
+COPY Backend.war /echo.war
+
+# run the app
+CMD ["/usr/bin/java", "-jar", "/echo.war"]
