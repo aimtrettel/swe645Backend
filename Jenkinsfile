@@ -10,9 +10,8 @@ pipeline {
           steps {
             script {
               checkout scm
-              sh 'rm -rf *.war'
-              sh 'jar -cvf Backend.war *'
-              backendImage = docker.build("aimnissley/swe645:B-$BUILD_NUMBER", "Backend")
+              sh 'mvn clean package'
+              backendImage = docker.build("aimnissley/swe645:B-$BUILD_NUMBER")
             }
           }
     }
